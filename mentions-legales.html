@@ -370,10 +370,8 @@ footer{
 
 <div class="page">
 <!-- ══════════════════════════════════════════════════════════════════════
-     À FAIRE AVANT LA MISE EN LIGNE
-     1. Remplacer tous les [CROCHETS] par les vraies informations.
-     2. Supprimer le bloc encadre orange ci-dessous (class="maj").
-     3. Faire relire par une fiduciaire ou un juriste. Ce texte a été rédigé
+     À FAIRE RELIRE
+     Faire relire par une fiduciaire ou un juriste. Ce texte a été rédigé
         par une intelligence artificielle qui n'est pas juriste : il couvre
         les cas courants d'un site vitrine suisse, rien de plus.
      ══════════════════════════════════════════════════════════════════════ -->
@@ -385,22 +383,21 @@ footer{
 
   <main id="suite">
     <div class="prose">
-<div class="maj"><strong>À compléter avant la mise en ligne</strong><ul><li>Le prénom et le nom de famille de l'éditeur</li><li>La forme juridique et, le cas échéant, le numéro IDE</li><li>Le statut TVA</li></ul>Puis supprimer ce bloc.</div>
+
       <h2>Éditeur du site</h2>
       <p>
-        Le présent site est édité par <strong>[PRÉNOM NOM DE FAMILLE]</strong>,
-        exerçant sous l'enseigne <strong>Sion Pixel Art</strong>.
+        Le présent site est édité par <strong>David Sarrasin</strong>, exerçant
+        sous l'enseigne <strong>Sion Pixel Art</strong>.
       </p>
       <ul>
         <li>Adresse : Route de Vissigen 22a, 1950 Sion (VS), Suisse</li>
         <li>Téléphone : <a href="tel:+41782037864">078 203 78 64</a></li>
         <li>E-mail : <a href="mailto:167korn@gmail.com">167korn@gmail.com</a></li>
-        <li>Forme juridique : <strong>[RAISON INDIVIDUELLE / SÀRL — à préciser]</strong></li>
-        <li>Numéro IDE : <strong>[CHE-xxx.xxx.xxx — à indiquer une fois inscrit au registre du commerce, ou à supprimer]</strong></li>
-        <li>Assujettissement à la TVA : <strong>[à préciser — non assujetti en dessous de 100'000 CHF de chiffre d'affaires annuel]</strong></li>
+        <li>Forme juridique : raison individuelle</li>
+        <li>TVA : non assujetti (art. 10 al. 2 let. a LTVA)</li>
       </ul>
       <p>
-        Responsable de la publication : <strong>[PRÉNOM NOM DE FAMILLE]</strong>.
+        Responsable de la publication : <strong>David Sarrasin</strong>.
       </p>
 
       <h2>Hébergement</h2>
@@ -462,7 +459,7 @@ footer{
   </div>
   <nav class="pied-liens px" aria-label="Informations légales"><a href="mentions-legales.html" aria-current="page">Mentions légales</a><a href="confidentialite.html">Politique de confidentialité</a><a href="conditions-generales.html">Conditions générales</a></nav>
   <div class="pied-bas px">
-    <span>© 2026 Sion Pixel Art — Sion, Valais</span>
+    <span>© 2026 David Sarrasin — Sion Pixel Art, Sion (VS)</span>
     <span>Fait par Abracadabra0420</span>
   </div>
 </footer>
@@ -578,7 +575,7 @@ footer{
     var t0 = performance.now();
     var a = progression();
     rendre(a);
-    if (elJauge) elJauge.style.width = (a * 100).toFixed(1) + "%%";
+    if (elJauge) elJauge.style.width = (a * 100).toFixed(1) + "%";
     cumul += performance.now() - t0;
     if (++cadres === 40) {
       // Trop cher ? La scène passe en mode allégé et reste fluide.
