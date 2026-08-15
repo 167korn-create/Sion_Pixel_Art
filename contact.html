@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="fr-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Sion Pixel Art, développeur web à Sion</title>
+<meta name="description" content="Demandez un devis gratuit pour votre site web. Téléphone 078 203 78 64, e-mail 167korn@gmail.com, Route de Vissigen 22a, 1950 Sion. Réponse sous 24 heures ouvrables.">
+<meta name="theme-color" content="#F4F1EA">
+
+<!-- Aucune adresse absolue ici, volontairement : ces pages fonctionnent telles
+     quelles sous n'importe quel nom de dépôt GitHub, et plus tard sous ton
+     propre nom de domaine, sans qu'une seule ligne soit à changer. Une balise
+     canonique qui désigne une adresse inexistante fait plus de mal que pas de
+     balise du tout. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact — Sion Pixel Art, développeur web à Sion">
+<meta property="og:description" content="Demandez un devis gratuit pour votre site web. Téléphone 078 203 78 64, e-mail 167korn@gmail.com, Route de Vissigen 22a, 1950 Sion. Réponse sous 24 heures ouvrables.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:locale" content="fr_CH">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════════════════
+   SION PIXEL ART — feuille de style commune à toutes les pages.
+   Un seul fichier partagé : le navigateur ne le télécharge qu'une fois pour
+   l'ensemble du site, et une correction se fait à un seul endroit.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --nuit:#F4F1EA;
+  --braise:#A85628;
+  --pierre:#16171B;
+  --pierre-mi:#6B6558;
+  --pierre-ombre:#8C8576;
+
+  --hair:rgba(22,23,28,.14);
+  --hair-fort:rgba(22,23,28,.26);
+
+  --display:"Archivo","Arial Narrow",Helvetica,sans-serif;
+  --corps:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+
+  --marge:clamp(1.15rem,5vw,5rem);
+  --max:1180px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{
+  margin:0;background:var(--nuit);color:var(--pierre);
+  font-family:var(--corps);font-size:clamp(1rem,.96rem + .3vw,1.08rem);
+  line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit}
+p{margin:0 0 1.05rem}
+p:last-child{margin-bottom:0}
+
+#toile{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+.d{
+  font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 116;
+  text-transform:uppercase;line-height:.88;letter-spacing:-.026em;margin:0;
+}
+.px{
+  font-family:var(--mono);font-weight:500;font-size:.72rem;
+  letter-spacing:.16em;text-transform:uppercase;line-height:1.5;margin:0;
+}
+.etiq{color:var(--braise)}
+:focus-visible{outline:2px solid var(--braise);outline-offset:3px;border-radius:1px}
+.saut{position:absolute;left:-9999px;background:var(--pierre);color:var(--nuit);padding:.7rem 1rem;z-index:99}
+.saut:focus{left:0;top:0}
+
+/* ═══ EN-TÊTE ═══ */
+.tete{
+  position:fixed;inset:0 0 auto;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.8rem var(--marge);
+  border-bottom:1px solid var(--hair);
+  background:rgba(244,241,233,.88);backdrop-filter:blur(12px);
+}
+.marque{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.marque svg{width:auto;height:15px;fill:var(--pierre);flex:none}
+.marque svg .feu{fill:var(--braise)}
+.marque span{
+  font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 92;
+  text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;
+}
+.tete nav{display:flex;align-items:center;gap:clamp(.7rem,2vw,1.7rem)}
+.tete nav a{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--pierre-mi);text-decoration:none;padding:.7rem .1rem;transition:color .18s;
+}
+.tete nav a:hover,.tete nav a.actif{color:var(--pierre)}
+.tete nav a.actif{border-bottom:1px solid var(--braise)}
+.tete .devis{
+  color:var(--pierre);border:1px solid var(--hair-fort);padding:.55rem .9rem;
+  transition:background .2s,color .2s,border-color .2s;
+}
+.tete .devis:hover,.tete .devis.actif{background:var(--pierre);color:var(--nuit);border-color:var(--pierre)}
+
+/* ═══ MENU MOBILE ═══
+   Sous 820 px, les onglets se replient derrière un bouton. Avant, ils étaient
+   purement masqués : le site paraissait n'avoir qu'une seule page sur un
+   téléphone, c'est-à-dire pour la majorité des visiteurs. */
+.burger{
+  display:none;align-items:center;justify-content:center;gap:4px;
+  flex-direction:column;width:42px;height:42px;margin:-6px -8px -6px 0;
+  background:none;border:0;cursor:pointer;padding:0;
+}
+.burger span{display:block;width:19px;height:1.5px;background:var(--pierre);transition:transform .22s,opacity .22s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+
+@media(max-width:820px){
+  .burger{display:flex}
+  .tete nav{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:rgba(244,241,233,.97);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--hair);
+    padding:.2rem var(--marge) 1.3rem;
+  }
+  .tete nav.ouvert{display:flex}
+  .tete nav a:not(.devis){
+    padding:1rem 0;border-bottom:1px solid var(--hair);font-size:.78rem;
+  }
+  .tete .devis{margin-top:1.2rem;text-align:center;padding:.85rem}
+}
+
+/* ═══ HÉROS (accueil) ═══ */
+.heros{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:7rem var(--marge) clamp(2.5rem,7vh,5rem);
+  max-width:var(--max);margin:0 auto;
+}
+.heros .px{color:var(--braise);margin-bottom:1.4rem}
+.heros h1{font-size:clamp(2.6rem,9.5vw,6.6rem);max-width:14ch}
+.heros h1 em{font-style:normal;color:var(--braise)}
+.heros .sous{
+  margin-top:1.6rem;max-width:46ch;color:var(--pierre-mi);
+  font-size:clamp(1rem,.92rem + .5vw,1.2rem);
+}
+.defiler{margin-top:3.2rem;color:var(--pierre-ombre)}
+
+/* ═══ CHAPEAU (pages intérieures) ═══ */
+.chapeau{
+  max-width:var(--max);margin:0 auto;
+  padding:clamp(7rem,16vh,11rem) var(--marge) clamp(2rem,5vw,3.5rem);
+}
+.chapeau .px{margin-bottom:1.2rem}
+.chapeau h1{font-size:clamp(2.2rem,7vw,4.4rem);max-width:17ch}
+.chapeau .intro{margin-top:1.5rem}
+
+/* ═══ BOUTONS ═══ */
+.actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.4rem}
+.bouton{
+  display:inline-block;padding:.95rem 1.7rem;text-decoration:none;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--pierre);background:var(--pierre);color:var(--nuit);
+  transition:opacity .2s;
+}
+.bouton:hover{opacity:.82}
+.bouton.creux{background:transparent;color:var(--pierre);border-color:var(--hair-fort)}
+.bouton.creux:hover{border-color:var(--pierre);opacity:1}
+
+/* ═══ SECTIONS ═══ */
+.sec{
+  max-width:var(--max);margin:0 auto;padding:clamp(3.2rem,7vw,6rem) var(--marge);
+  border-top:1px solid var(--hair);
+}
+.duo{display:grid;gap:clamp(1.6rem,4vw,3.5rem);grid-template-columns:1fr}
+@media(min-width:860px){.duo{grid-template-columns:8.5rem 1fr}}
+h2.d{font-size:clamp(1.75rem,4.4vw,2.9rem);max-width:20ch}
+h3.d{font-size:1.35rem;margin-top:2.2rem}
+.intro{margin-top:1.3rem;max-width:54ch;color:var(--pierre-mi)}
+.intro.grand{font-size:clamp(1.02rem,.94rem + .5vw,1.22rem);max-width:50ch}
+.corps{max-width:58ch;color:var(--pierre-mi);margin-top:1.4rem}
+.corps strong{color:var(--pierre);font-weight:600}
+
+/* ═══ CARTES ═══ */
+.cartes{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:2.6rem}
+@media(min-width:640px){.cartes{grid-template-columns:1fr 1fr}}
+@media(min-width:980px){.cartes{grid-template-columns:repeat(3,1fr)}}
+.carte{
+  background:rgba(255,253,248,.78);padding:1.6rem 1.4rem;transition:background .25s;
+  display:flex;flex-direction:column;text-decoration:none;
+}
+.carte:hover{background:rgba(22,23,28,.045)}
+.carte .px{color:var(--pierre-ombre);margin-bottom:1rem}
+.carte h3{
+  font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 100;
+  font-size:1.02rem;text-transform:uppercase;letter-spacing:.01em;margin:0 0 .5rem;
+}
+.carte p{font-size:.93rem;color:var(--pierre-mi);margin:0}
+.carte .plus{
+  margin-top:1.1rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--braise);
+}
+
+/* ═══ CHIFFRES ═══ */
+.chiffres{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:var(--hair);border:1px solid var(--hair);margin-top:2.6rem;
+}
+@media(min-width:760px){.chiffres{grid-template-columns:repeat(4,1fr)}}
+.chiffre{background:rgba(255,253,248,.78);padding:1.5rem 1.2rem;text-align:center}
+.chiffre b{
+  display:block;font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 110;
+  font-size:clamp(1.7rem,4.5vw,2.4rem);line-height:1;color:var(--pierre);
+}
+.chiffre span{display:block;margin-top:.6rem;color:var(--pierre-mi);font-size:.85rem}
+
+/* ═══ TROIS ARGUMENTS ═══ */
+.triple{display:grid;gap:clamp(1.5rem,3vw,2.4rem);grid-template-columns:1fr;margin-top:2.4rem}
+@media(min-width:760px){.triple{grid-template-columns:repeat(3,1fr)}}
+.triple>div{padding-top:1.05rem;border-top:1px solid var(--hair-fort)}
+.triple h3{
+  font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 100;
+  font-size:1rem;text-transform:uppercase;margin:0 0 .45rem;
+}
+.triple p{font-size:.93rem;color:var(--pierre-mi);margin:0}
+
+/* ═══ LISTES NUMÉROTÉES ET À PUCES ═══ */
+ol.etapes{list-style:none;margin:2.4rem 0 0;padding:0;counter-reset:e}
+ol.etapes li{
+  counter-increment:e;display:grid;gap:.2rem 1.5rem;grid-template-columns:2.4rem 1fr;
+  padding:1.3rem 0;border-top:1px solid var(--hair);
+}
+ol.etapes li::before{
+  content:counter(e,decimal-leading-zero);
+  font-family:var(--mono);font-weight:500;font-size:.72rem;color:var(--braise);padding-top:.35rem;
+}
+ol.etapes h3{
+  font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 100;
+  font-size:1rem;text-transform:uppercase;margin:0 0 .3rem;
+}
+ol.etapes p{font-size:.93rem;color:var(--pierre-mi);margin:0}
+
+ul.pointe{list-style:none;margin:1.6rem 0 0;padding:0;max-width:58ch}
+ul.pointe li{
+  position:relative;padding:.55rem 0 .55rem 1.5rem;
+  border-bottom:1px solid var(--hair);color:var(--pierre-mi);font-size:.96rem;
+}
+ul.pointe li::before{
+  content:"";position:absolute;left:0;top:1.15rem;width:6px;height:6px;background:var(--braise);
+}
+ul.pointe li strong{color:var(--pierre);font-weight:600}
+
+/* ═══ TARIFS ═══ */
+.grille-prix{margin-top:2.6rem;border-top:1px solid var(--hair-fort)}
+.ligne{display:grid;gap:.35rem 2rem;grid-template-columns:1fr;padding:1.45rem 0;border-bottom:1px solid var(--hair)}
+@media(min-width:780px){.ligne{grid-template-columns:1fr minmax(0,1.3fr) auto;align-items:baseline}}
+.ligne h3{
+  font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 100;
+  font-size:1rem;text-transform:uppercase;margin:0;
+}
+.ligne .quoi{color:var(--pierre-mi);font-size:.93rem;margin:0}
+.prix{
+  font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 110;
+  font-size:clamp(1.35rem,3.2vw,1.85rem);line-height:1;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.fourchette{display:block;margin-top:.35rem;color:var(--pierre-ombre)}
+@media(min-width:780px){.ligne .prix,.fourchette{text-align:right}}
+.encart{margin-top:2.4rem;padding:1.5rem;border:1px solid var(--hair-fort);display:grid;gap:1.4rem}
+@media(min-width:700px){.encart{grid-template-columns:1fr 1fr;gap:2.4rem;padding:1.8rem}}
+.encart .px{color:var(--braise);margin-bottom:.5rem}
+.encart .prix{font-size:1.2rem;display:block;margin-bottom:.5rem;text-align:left}
+.encart p{font-size:.93rem;color:var(--pierre-mi)}
+
+/* ═══ BANDEAU D'APPEL ═══ */
+.bandeau{border-top:1px solid var(--hair);background:rgba(22,23,28,.035)}
+.bandeau-in{
+  max-width:var(--max);margin:0 auto;padding:clamp(3rem,7vw,5rem) var(--marge);
+  display:grid;gap:1.8rem;align-items:center;
+}
+@media(min-width:900px){.bandeau-in{grid-template-columns:1fr auto;gap:3rem}}
+.bandeau .d{font-size:clamp(1.5rem,3.6vw,2.4rem);max-width:22ch}
+.bandeau .actions{margin-top:0}
+
+/* ═══ CONTACT ═══ */
+#contact h2.d,.chapeau h1.large{font-size:clamp(2rem,5.4vw,3.5rem);max-width:16ch}
+.contact-grille{display:grid;gap:clamp(2rem,4vw,3.5rem);grid-template-columns:1fr;margin-top:2.6rem}
+@media(min-width:900px){.contact-grille{grid-template-columns:minmax(0,.85fr) minmax(0,1fr)}}
+.coord{display:grid;gap:1.4rem;grid-template-columns:1fr}
+@media(min-width:520px){.coord{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:900px){.coord{grid-template-columns:1fr}}
+.coord div{border-top:1px solid var(--hair-fort);padding-top:.9rem}
+.coord .px{color:var(--pierre-ombre);margin-bottom:.4rem}
+.coord a,.coord span{
+  font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 96;
+  font-size:1.02rem;text-decoration:none;letter-spacing:.01em;display:inline-block;line-height:1.42;
+}
+.coord a{border-bottom:1px solid var(--hair-fort);padding-bottom:2px}
+.coord a:hover{border-bottom-color:var(--braise);color:var(--braise)}
+
+.form{border:1px solid var(--hair-fort);padding:clamp(1.3rem,3vw,2rem)}
+.champ{margin-bottom:1.4rem}
+.champ:last-of-type{margin-bottom:1.7rem}
+.champ label{
+  display:block;font-family:var(--mono);font-weight:500;font-size:.68rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--pierre-ombre);margin-bottom:.5rem;
+}
+.champ input,.champ textarea,.champ select{
+  width:100%;background:transparent;color:var(--pierre);
+  font-family:var(--corps);font-size:1rem;line-height:1.5;
+  border:0;border-bottom:1px solid var(--hair-fort);
+  padding:.45rem 0;border-radius:0;-webkit-appearance:none;appearance:none;transition:border-color .2s;
+}
+.champ select{
+  background-image:linear-gradient(45deg,transparent 50%,var(--pierre-mi) 50%),
+                   linear-gradient(135deg,var(--pierre-mi) 50%,transparent 50%);
+  background-position:calc(100% - 11px) calc(1em + 1px),calc(100% - 6px) calc(1em + 1px);
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:1.6rem;
+}
+.champ select option{background:var(--nuit);color:var(--pierre)}
+.champ textarea{resize:vertical;min-height:5.2rem}
+.champ input:focus,.champ textarea:focus,.champ select:focus{outline:0;border-bottom-color:var(--braise)}
+.champ input::placeholder,.champ textarea::placeholder{color:var(--pierre-ombre)}
+.form .bouton{width:100%;text-align:center;cursor:pointer;font:inherit;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.mot{margin-top:1rem;font-size:.86rem;color:var(--pierre-mi);min-height:1.3em}
+.mot.souci{color:var(--braise)}
+
+/* ═══ PAGES LÉGALES ═══ */
+.prose{max-width:70ch;margin:0 auto;padding:0 var(--marge) clamp(3rem,7vw,5rem)}
+.prose h2{
+  font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 104;
+  text-transform:uppercase;font-size:1.12rem;letter-spacing:.01em;
+  margin:2.6rem 0 .9rem;padding-top:1.4rem;border-top:1px solid var(--hair);
+}
+.prose h2:first-child{margin-top:0;border-top:0;padding-top:0}
+.prose p,.prose li{color:var(--pierre-mi)}
+.prose strong{color:var(--pierre);font-weight:600}
+.prose ul{margin:0 0 1.05rem;padding-left:1.1rem}
+.prose li{margin-bottom:.4rem}
+.prose a{color:var(--braise)}
+.prose .maj{
+  border:1px solid var(--braise);padding:1rem 1.2rem;margin-bottom:2.4rem;
+  color:var(--pierre);font-size:.93rem;
+}
+.prose .date{color:var(--pierre-ombre);font-size:.86rem}
+
+/* ═══ PORTRAIT ═══ */
+.portrait{
+  display:grid;gap:clamp(1.4rem,3vw,2.6rem);grid-template-columns:1fr;
+  align-items:start;margin-top:2.4rem;
+}
+@media(min-width:760px){.portrait{grid-template-columns:minmax(0,15rem) minmax(0,1fr)}}
+.portrait img{box-shadow:0 1px 3px rgba(22,23,28,.10);
+  width:100%;max-width:15rem;height:auto;display:block;
+  border:1px solid var(--hair-fort);filter:saturate(.9);
+}
+.portrait figcaption{
+  margin-top:.7rem;color:var(--pierre-ombre);
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.portrait .corps{margin-top:0}
+
+/* ═══ REPÈRES CHRONOLOGIQUES ═══ */
+ul.jalons{list-style:none;margin:2rem 0 0;padding:0;max-width:52rem}
+ul.jalons li{
+  display:grid;gap:.15rem 1.4rem;grid-template-columns:5.5rem 1fr;
+  padding:1rem 0;border-top:1px solid var(--hair);
+}
+ul.jalons b{
+  font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.1em;
+  color:var(--braise);padding-top:.2rem;
+}
+ul.jalons span{color:var(--pierre-mi);font-size:.96rem}
+ul.jalons strong{color:var(--pierre);font-weight:600}
+
+/* ═══ QUESTIONS FRÉQUENTES ═══ */
+.qr{padding:1.5rem 0;border-top:1px solid var(--hair)}
+.qr:first-child{border-top:0;padding-top:0}
+.qr h3{font-size:1.05rem;max-width:34ch;margin:0 0 .7rem;line-height:1.25;letter-spacing:-.01em}
+.qr p{color:var(--pierre-mi);max-width:62ch;font-size:.97rem;margin:0}
+
+/* ═══ PIED DE PAGE ═══ */
+footer{
+  border-top:1px solid var(--hair);margin-top:0;
+  padding:clamp(2.4rem,5vw,3.5rem) var(--marge) 3.4rem;
+}
+.pied-haut,.pied-liens,.pied-bas{max-width:var(--max);margin:0 auto}
+.pied-haut{
+  display:grid;gap:1.6rem;grid-template-columns:1fr;
+  padding-bottom:1.8rem;border-bottom:1px solid var(--hair);
+}
+@media(min-width:700px){.pied-haut{grid-template-columns:1fr auto;align-items:start}}
+.pied-coord{display:flex;flex-direction:column;gap:.35rem;color:var(--pierre-mi);font-size:.93rem}
+@media(min-width:700px){.pied-coord{text-align:right}}
+.pied-coord a{color:var(--pierre-mi);text-decoration:none}
+.pied-coord a:hover{color:var(--braise)}
+.pied-liens{
+  display:flex;flex-wrap:wrap;gap:.6rem 1.8rem;padding:1.4rem 0;
+  border-bottom:1px solid var(--hair);
+}
+.pied-liens a{color:var(--pierre-mi);text-decoration:none;transition:color .18s}
+.pied-liens a:hover{color:var(--pierre)}
+.pied-bas{
+  display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between;
+  padding-top:1.4rem;color:var(--pierre-ombre);
+}
+
+/* ═══ JAUGE ═══ */
+.jauge{position:fixed;left:0;right:0;bottom:0;height:2px;background:var(--hair);z-index:15}
+.jauge i{display:block;height:100%;width:0;background:var(--braise)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<a class="saut" href="#suite">Aller au contenu</a>
+
+<canvas id="toile" role="img" aria-label="Animation d'arrière-plan qui se construit à mesure que la page défile."></canvas>
+
+<header class="tete">
+  <a class="marque" href="index.html" aria-label="Sion Pixel Art, accueil">
+    <svg viewBox="0 0 9 5" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" class="feu"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/></svg><span>Sion Pixel Art</span>
+  </a>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="menu"
+          aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  <nav id="menu" aria-label="Navigation principale">
+    <a href="sites.html">Sites</a>
+    <a href="metiers.html">Métiers</a>
+    <a href="animations.html">Animations</a>
+    <a href="tarifs.html">Tarifs</a>
+    <a href="a-propos.html">Qui suis-je</a>
+    <a class="devis actif" href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <section class="chapeau">
+    <p class="px etiq">Contact</p>
+    <h1 class="d">Parlons de votre site.<br>On se voit à Sion.</h1>
+    <p class="intro grand">Le nom de votre entreprise et deux lignes sur votre activité suffisent pour recevoir un devis chiffré. Réponse sous 24 heures ouvrables.</p>
+  </section>
+  <main id="suite">
+    <section class="sec" id="contact">
+      <div class="duo">
+        <p class="px etiq">Coordonnées</p>
+        <div>
+          <div class="contact-grille" style="margin-top:0">
+            <div class="coord">
+              <div>
+                <p class="px">Téléphone</p>
+                <a href="tel:+41782037864">078 203 78 64</a>
+              </div>
+              <div>
+                <p class="px">E-mail</p>
+                <a href="mailto:167korn@gmail.com?subject=Demande%20de%20devis%20%E2%80%94%20site%20web">167korn@gmail.com</a>
+              </div>
+              <div>
+                <p class="px">Localisation</p>
+                <span>Route de Vissigen 22a<br>1950 Sion (VS)<br>Suisse</span>
+              </div>
+              <div>
+                <p class="px">WhatsApp</p>
+                <a href="https://wa.me/41782037864">Écrire un message</a>
+              </div>
+              <!-- RÉSEAUX — à activer quand les comptes existent, en remplaçant
+                   l'adresse. Supprimer ce bloc s'il n'y en a pas.
+              <div>
+                <p class="px">Réseaux</p>
+                <a href="https://www.instagram.com/VOTRE_COMPTE/">Instagram</a>
+              </div>
+              -->
+            </div>
+
+            <form class="form" id="devis" novalidate>
+              <div class="champ">
+                <label for="f-nom">Nom et entreprise</label>
+                <input id="f-nom" name="nom" type="text" autocomplete="organization"
+                       placeholder="Marie Dupont — Boulangerie Dupont" required>
+              </div>
+              <div class="champ">
+                <label for="f-contact">Téléphone ou e-mail</label>
+                <input id="f-contact" name="contact" type="text" autocomplete="tel"
+                       placeholder="078 000 00 00" required>
+              </div>
+              <div class="champ">
+                <label for="f-formule">Ce qui vous intéresse</label>
+                <select id="f-formule" name="formule">
+                  <option>Je ne sais pas encore</option>
+                  <option>Site une page</option>
+                  <option>Site vitrine complet</option>
+                  <option>Site avec animation</option>
+                  <option>Reprise d'un site existant</option>
+                  <option>Retouches ponctuelles</option>
+                </select>
+              </div>
+              <div class="champ">
+                <label for="f-mot">Votre activité en deux lignes</label>
+                <textarea id="f-mot" name="mot" rows="3"
+                          placeholder="Ce que vous vendez, à qui, et ce qui manque au site actuel."></textarea>
+              </div>
+              <button class="bouton" type="submit">Envoyer la demande</button>
+              <p class="mot" id="f-retour" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec">
+      <div class="duo">
+        <p class="px etiq">Déplacement</p>
+        <div>
+          <h2 class="d">Je me déplace</h2>
+          <p class="corps">
+            Sion, Sierre, Martigny, Conthey, Savièse, le val d'Hérens, le Haut-Valais :
+            le déplacement est compris dans le prix. Un premier rendez-vous de trente
+            minutes chez vous ne vous engage à rien et ne coûte rien.
+          </p>
+          <p class="corps">
+            Si vous préférez, tout peut se faire par téléphone et par e-mail — plusieurs
+            projets se sont bien passés sans qu'on se voie une seule fois.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+<footer>
+  <div class="pied-haut">
+    <a class="marque" href="index.html"><svg viewBox="0 0 9 5" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" class="feu"/><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/></svg><span>Sion Pixel Art</span></a>
+    <div class="pied-coord">
+      <span>Route de Vissigen 22a<br>1950 Sion (VS)</span>
+      <a href="tel:+41782037864">078 203 78 64</a>
+      <a href="mailto:167korn@gmail.com">167korn@gmail.com</a>
+    </div>
+  </div>
+  <nav class="pied-liens px" aria-label="Plan du site"><a href="index.html">Accueil</a><a href="sites.html">Sites vitrines</a><a href="metiers.html">Par métier</a><a href="animations.html">Animations</a><a href="reprise.html">Reprise de site</a><a href="tarifs.html">Tarifs</a><a href="a-propos.html">Qui suis-je</a><a href="faq.html">Questions fréquentes</a><a href="contact.html" aria-current="page">Contact</a></nav>
+  <nav class="pied-liens px" aria-label="Informations légales"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Politique de confidentialité</a><a href="conditions-generales.html">Conditions générales</a></nav>
+  <div class="pied-bas px">
+    <span>© 2026 David Sarrasin — Sion Pixel Art, Sion (VS)</span>
+    <span>Fait par Abracadabra0420</span>
+  </div>
+</footer>
+</div>
+
+<div class="jauge"><i id="remplissage"></i></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════════
+   FOND ANIMÉ — les nuages dérivent au-dessus d'un lac
+
+   Le fond est fixé derrière toute la longueur de la page et avance avec le
+   défilement : rien en haut, complet en bas. Aucune bibliothèque, aucune image.
+   Le hasard est déterministe — chaque élément tire ses valeurs d'une fonction de
+   son propre indice — donc la figure est toujours la même et il n'y a rien à
+   stocker entre deux images.
+
+   Chaque page du site a sa scène et sa graine : deux pages ne se ressemblent pas.
+   ══════════════════════════════════════════════════════════════════════════════ */
+(function(){
+  "use strict";
+  var GRAINE = 6, OPACITE = 0.9;
+
+  var toile = document.getElementById("toile");
+  if (!toile || !toile.getContext) return;
+  var ctx = toile.getContext("2d", { alpha: false });
+  if (!ctx) return;
+  var elJauge = document.getElementById("remplissage");
+  var reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var L = 0, H = 0, dpr = 1, qualiteBasse = false;
+
+  function alea(g){
+    var x = Math.sin(g * 12.9898) * 43758.5453;
+    return x - Math.floor(x);
+  }
+  function facile(t){ return 1 - Math.pow(1 - t, 3); }
+  // Le fond n'est plus un aplat noir : une base ardoise avec une lueur au centre.
+  // L'aplat écrasait les animations, qui finissaient par ne plus se voir.
+  var fondToile = null;
+  function peindreFond(){
+    var f = document.createElement("canvas");
+    f.width = Math.max(1, Math.round(L * dpr));
+    f.height = Math.max(1, Math.round(H * dpr));
+    var g = f.getContext("2d");
+    if (!g) { fondToile = null; return; }
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = "#F4F1EA"; g.fillRect(0, 0, L, H);
+    var r = Math.max(L, H) * 0.72;
+    var lu = g.createRadialGradient(L*0.5, H*0.46, 0, L*0.5, H*0.46, r);
+    lu.addColorStop(0, "rgba(255,252,244,.85)");
+    lu.addColorStop(0.55, "rgba(250,245,235,.45)");
+    lu.addColorStop(1, "rgba(244,241,233,0)");
+    g.fillStyle = lu; g.fillRect(0, 0, L, H);
+    fondToile = f;
+  }
+  function poserFond(){
+    if (fondToile) ctx.drawImage(fondToile, 0, 0, L, H);
+    else { ctx.fillStyle = "#F4F1EA"; ctx.fillRect(0, 0, L, H); }
+  }
+
+  function neuve(){
+    var c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(L * dpr));
+    c.height = Math.max(1, Math.round(H * dpr));
+    var g = c.getContext("2d");
+    if (g) g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return g ? { c: c, g: g } : null;
+  }
+
+  /* ═══ Le lac de jour : les nuages dérivent au-dessus des cimes ═══
+     La voûte étoilée ne veut plus rien dire sur un site clair. Même idée de
+     time-lapse, mais de jour : plus on descend la page, plus les nuages
+     avancent, et tout se reflète dans l'eau. Une bouffée de nuage est peinte
+     une seule fois puis recopiée : c'est ce qui permet des nuages doux sans
+     recalculer un dégradé à chaque image. */
+  var NUAGES = 46;
+  var nuages = [], yH = 0;
+  var cielToile = null, montToile = null, bouffee = null;
+
+  function crete(base, amp, graine){
+    var pts = [[-4, base]], n = 17;
+    for (var i = 0; i <= n; i++) {
+      var u = i/n;
+      var jj = alea(graine*7.7 + i*3.1), h1 = alea(graine*3.3 + i*1.7), h2 = alea(graine*5.9 + i*2.3);
+      var x = (u + (jj-0.5)*0.6/n) * L;
+      var cl = 0.45 + 0.55*Math.sin(Math.PI * Math.min(1, Math.max(0, u*1.06 - 0.03)));
+      pts.push([x, base - amp*cl*(i % 2 === 0 ? (0.62 + 0.38*h1) : (0.18 + 0.30*h2))]);
+    }
+    pts.push([L + 4, base]);
+    return pts;
+  }
+
+  function peindreBouffee(){
+    var T = 168;
+    var c = document.createElement("canvas");
+    c.width = T; c.height = T;
+    var g = c.getContext("2d");
+    if (!g) return null;
+    var gr = g.createRadialGradient(T/2, T/2, 0, T/2, T/2, T/2);
+    gr.addColorStop(0,   "rgba(255,255,255,1)");
+    gr.addColorStop(0.42,"rgba(255,255,255,.72)");
+    gr.addColorStop(1,   "rgba(255,255,255,0)");
+    g.fillStyle = gr; g.fillRect(0, 0, T, T);
+    return c;
+  }
+
+  function construire(){
+    yH = H * 0.68;
+    bouffee = peindreBouffee();
+    nuages = [];
+    for (var i = 1; i <= NUAGES; i++) {
+      var g = i + GRAINE * 61;
+      var r1 = alea(g*1.7), r2 = alea(g*2.9+11), r3 = alea(g*4.1+23), r4 = alea(g*5.3+37);
+      nuages.push({ x0: r1, y: (0.05 + 0.55*r2*r2), ech: 0.35 + 1.25*r3,
+                    vit: 0.08 + 0.26*r4, a: 0.4 + 0.6*r3 });
+    }
+
+    var c = neuve();                       // ciel et eau
+    if (c) {
+      var gc = c.g.createLinearGradient(0, 0, 0, yH);
+      gc.addColorStop(0, "#DEE6EE"); gc.addColorStop(1, "#F0F4F6");
+      c.g.fillStyle = gc; c.g.fillRect(0, 0, L, yH + 1);
+      var ge = c.g.createLinearGradient(0, yH, 0, H);
+      ge.addColorStop(0, "#EEEEEA"); ge.addColorStop(1, "#E4E4DC");
+      c.g.fillStyle = ge; c.g.fillRect(0, yH, L, H - yH);
+      cielToile = c.c;
+    }
+
+    var mo = neuve();                      // cimes et reflets, très pâles
+    if (mo) {
+      var plans = [[1.7 + GRAINE, H*0.115, "rgba(188,196,210,1)", "rgba(188,196,210,.38)"],
+                   [4.9 + GRAINE, H*0.075, "rgba(162,174,194,1)", "rgba(162,174,194,.38)"]];
+      for (var k = 0; k < 2; k++) {
+        var pts = crete(yH, plans[k][1], plans[k][0]), q;
+        mo.g.beginPath(); mo.g.moveTo(pts[0][0], pts[0][1]);
+        for (q = 1; q < pts.length; q++) mo.g.lineTo(pts[q][0], pts[q][1]);
+        mo.g.lineTo(L + 4, yH + 3); mo.g.lineTo(-4, yH + 3); mo.g.closePath();
+        mo.g.fillStyle = plans[k][2]; mo.g.fill();
+        mo.g.beginPath(); mo.g.moveTo(pts[0][0], 2*yH - pts[0][1]);
+        for (q = 1; q < pts.length; q++) mo.g.lineTo(pts[q][0], 2*yH - pts[q][1]);
+        mo.g.lineTo(L + 4, yH - 3); mo.g.lineTo(-4, yH - 3); mo.g.closePath();
+        mo.g.fillStyle = plans[k][3]; mo.g.fill();
+      }
+      mo.g.fillStyle = "rgba(255,255,255,.62)";
+      mo.g.fillRect(0, yH - 0.5, L, 1.4);
+      montToile = mo.c;
+    }
+  }
+
+  function rendre(avance){
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (cielToile) ctx.drawImage(cielToile, 0, 0, L, H);
+    else { ctx.fillStyle = "#F4F1EA"; ctx.fillRect(0, 0, L, H); }
+
+    if (bouffee) {
+      var pas = qualiteBasse ? 2 : 1;
+      for (var passe = 0; passe < 2; passe++) {        // le ciel, puis son reflet
+        for (var i = 0; i < nuages.length; i += pas) {
+          var n = nuages[i];
+          var x = (((n.x0 + avance * n.vit) % 1.4) - 0.2) * L;
+          var y = n.y * yH;
+          if (passe === 1) y = 2 * yH - y;
+          var w = 168 * n.ech;
+          if (w < 8 || x < -w || x > L + w || y < -w || y > H + w) continue;
+          ctx.globalAlpha = (passe === 0 ? 0.30 : 0.14) * n.a * OPACITE;
+          ctx.drawImage(bouffee, x - w/2, y - w/2, w, w);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    if (montToile) ctx.drawImage(montToile, 0, 0, L, H);
+  }
+
+  function redimensionner(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    L = window.innerWidth; H = window.innerHeight;
+    toile.width = Math.max(1, Math.round(L * dpr));
+    toile.height = Math.max(1, Math.round(H * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+  }
+
+  function progression(){
+    if (reduit) return 1;
+    var doc = document.documentElement;
+    var course = doc.scrollHeight - window.innerHeight;
+    if (course <= 40) return 1;
+    return Math.max(0, Math.min(1, (window.pageYOffset || doc.scrollTop) / course));
+  }
+
+  var cadres = 0, cumul = 0;
+  function boucle(){
+    var t0 = performance.now();
+    var a = progression();
+    rendre(a);
+    if (elJauge) elJauge.style.width = (a * 100).toFixed(1) + "%";
+    cumul += performance.now() - t0;
+    if (++cadres === 40) {
+      // Trop cher ? La scène passe en mode allégé et reste fluide.
+      if (cumul / cadres > 12) qualiteBasse = true;
+      cadres = 0; cumul = 0;
+    }
+    requestAnimationFrame(boucle);
+  }
+
+  var minuteur;
+  window.addEventListener("resize", function(){
+    clearTimeout(minuteur);
+    minuteur = setTimeout(function(){
+      redimensionner(); peindreFond(); construire();
+      if (reduit) rendre(1);
+    }, 200);
+  });
+
+  redimensionner();
+  peindreFond();
+  construire();
+  if (reduit) rendre(1); else requestAnimationFrame(boucle);
+})();
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   MENU MOBILE
+   Sous 820 px les onglets se replient derrière le bouton. Sans ça, ils étaient
+   masqués sans remplacement et le site semblait n'avoir qu'une seule page.
+   ══════════════════════════════════════════════════════════════════════════════ */
+(function(){
+  "use strict";
+  var b = document.getElementById("burger"), m = document.getElementById("menu");
+  if (!b || !m) return;
+  function fermer(){ m.classList.remove("ouvert"); b.setAttribute("aria-expanded", "false"); }
+  b.addEventListener("click", function(){
+    var ouvert = m.classList.toggle("ouvert");
+    b.setAttribute("aria-expanded", ouvert ? "true" : "false");
+  });
+  m.addEventListener("click", function(e){ if (e.target.tagName === "A") fermer(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") fermer(); });
+  window.addEventListener("resize", function(){ if (window.innerWidth > 820) fermer(); });
+})();
+</script>
+</body>
+</html>
